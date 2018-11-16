@@ -3,7 +3,7 @@
 # Block public trackers with names
 # using /etc/hosts
 ##########################################
-# Please tun as root or use sudo
+# Please run as root or use sudo
 ##########################################
 if [[ "$EUID" -ne 0 ]];
   then echo "Please run as root or use sudo"  
@@ -28,7 +28,7 @@ line_number=$(grep -n "### PUBLIC TRACKER START ###" /etc/hosts|awk -F':' '{prin
 line_number=$(($line_number + 1))
 # get public tracker list
 curl https://raw.githubusercontent.com/ngosang/trackerslist/master/blacklist.txt > /tmp/public_trackers
-# inert into /etc/hosts
+# insert into /etc/hosts
 for line in $(cat /tmp/public_trackers | awk -F'/' '{print $3}'|awk -F':' '{print $1}'|sort|uniq)
 do
   sed -i "${line_number}i 127.0.0.1 ${line}" /etc/hosts
