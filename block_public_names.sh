@@ -15,6 +15,14 @@ fi
 cp /etc/hosts /etc/hosts.before_public_tracker
 sed '/### PUBLIC TRACKER START ###/,/### PUBLIC TRACKER END ###/{//!d}' /etc/hosts > /tmp/hosts
 mv /tmp/hosts /etc/hosts
+# test if the /etc/hosts file has used this script before
+if grep -q SomeString "$File"i
+then
+  :
+else
+  echo "### PUBLIC TRACKER START" >> /etc/hosts
+  echo "### PUBLIC TRACKER END" >> /etc/hosts
+fi
 # Grep line number
 line_number=$(grep -n "### PUBLIC TRACKER START ###" /etc/hosts|awk -F':' '{print $1}')
 line_number=$(($line_number + 1))
