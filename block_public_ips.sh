@@ -3,7 +3,7 @@
 # Block public trackers with names
 # using /etc/hosts
 ##########################################
-# Please tun as root or use sudo
+# Please run as root or use sudo
 ##########################################
 if [[ "$EUID" -ne 0 ]];
   then echo "Please run as root or use sudo"  
@@ -20,7 +20,7 @@ done
 ##########################################
 # get public tracker list
 curl https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all_ip.txt > /tmp/public_ips
-# inert into /etc/hosts
+# insert into iptables
 for line in $(cat /tmp/public_ips | awk -F'/' '{print $3}'|awk -F':' '{print $1}'|sort|uniq)
 do
    iptables -I INPUT -s ${line} -j DROP -m comment --comment "Blocked by block_public_tracker"
