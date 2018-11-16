@@ -13,4 +13,4 @@ Creates iptables rules to block IP. Each rule has a comment "Blocked by block_pu
 
 ## block_public_names.sh
 
-Creates an entry in /etc/hosts for each public tracker, pointing to 127.0.0.1 (localhost)
+Creates an entry in /etc/hosts for each public tracker, pointing to 0.0.0.0 to avoid making useless connection
