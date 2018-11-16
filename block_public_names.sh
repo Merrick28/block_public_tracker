@@ -17,7 +17,7 @@ tmphost=$(tempfile)
 sed '/### PUBLIC TRACKER START ###/,/### PUBLIC TRACKER END ###/{//!d}' /etc/hosts > ${tmphost}
 mv ${tmphost} /etc/hosts
 # test if the /etc/hosts file has used this script before
-if grep -q "### PUBLIC TRACKER START ###" "/etc/hosts"i
+if grep -q "### PUBLIC TRACKER START ###" "/etc/hosts"
 then
   :
 else
@@ -35,3 +35,4 @@ for line in $(cat ${address_list} | awk -F'/' '{print $3}'|awk -F':' '{print $1}
 do
   sed -i "${line_number}i 127.0.0.1 ${line}" /etc/hosts
 done
+chmod 755 /etc/hosts
