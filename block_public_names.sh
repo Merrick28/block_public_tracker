@@ -19,7 +19,7 @@ mv /tmp/hosts /etc/hosts
 line_number=$(grep -n "### PUBLIC TRACKER START ###" /etc/hosts|awk -F':' '{print $1}')
 line_number=$(($line_number + 1))
 # get public tracker list
-curl https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt > /tmp/public_trackers
+curl https://raw.githubusercontent.com/ngosang/trackerslist/master/blacklist.txt > /tmp/public_trackers
 # inert into /etc/hosts
 for line in $(cat /tmp/public_trackers | awk -F'/' '{print $3}'|awk -F':' '{print $1}'|sort|uniq)
 do
