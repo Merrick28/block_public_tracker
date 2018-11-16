@@ -33,6 +33,6 @@ curl https://raw.githubusercontent.com/ngosang/trackerslist/master/blacklist.txt
 # insert into /etc/hosts
 for line in $(cat ${address_list} | awk -F'/' '{print $3}'|awk -F':' '{print $1}'|sort|uniq)
 do
-  sed -i "${line_number}i 127.0.0.1 ${line}" /etc/hosts
+  sed -i "${line_number}i 0.0.0.0 ${line}" /etc/hosts
 done
 chmod 755 /etc/hosts
