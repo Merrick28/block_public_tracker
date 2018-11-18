@@ -1,0 +1,3 @@
+[submodule "trackerslist"]
+	path = trackerslist
+	url = https://github.com/ngosang/trackerslist
