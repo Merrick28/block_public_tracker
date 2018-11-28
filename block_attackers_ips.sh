@@ -11,13 +11,7 @@ if [[ "$EUID" -ne 0 ]];
 fi
 
 ip_list=$(tempfile)
-##########################################
-# Delete the current rules
-NOWRULES=$(iptables --line-number -nL INPUT | grep block_public_attacker | awk '{print $1}' | tac)
-for rul in $NOWRULES
-do 
-  iptables -D INPUT $rul; sleep 0.1
-done
+
 ##########################################
 # get public tracker list
 # adapt the timer in seconds
