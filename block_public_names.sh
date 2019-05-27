@@ -36,3 +36,5 @@ do
   sed -i "${line_number}i 0.0.0.0 ${line}" /etc/hosts
 done
 chmod 755 /etc/hosts
+rm -f ${address_list}
+rm -f ${tmphost}
