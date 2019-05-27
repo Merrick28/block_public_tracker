@@ -26,3 +26,4 @@ for line in $(cat ${ip_list} | awk -F'/' '{print $3}'|awk -F':' '{print $1}'|sor
 do
    iptables -I INPUT -s ${line} -j DROP -m comment --comment "Blocked by block_public_tracker"
 done
+rm -f ${ip_list}
