@@ -48,10 +48,6 @@ do
     BLOCKLIST_FILE=$(mktemp)
     BLOCKLIST_TMP_FILE=$(mktemp)
 
-    # Create a new LOGFILE_TMP from scratch. Do it the very simplest way possible
-    rm -f $LOGFILE_TMP
-    touch $LOGFILE_TMP
-
     echo "" >> $LOGFILE_TMP
     echo "Downloading the most recent IP list from $TO_DOWNLOAD ..." >> $LOGFILE_TMP
     wgetOK=$(wget -qO - $TO_DOWNLOAD >> $BLOCKLIST_FILE) >> $LOGFILE_TMP 2>&1
@@ -141,7 +137,7 @@ then
 fi
 
 #cleaning
-cat $LOGFILE_TMP >> $LOGFILE
+cat $LOGFILE_TMP >> ${LOGFILE}
 rm -f $LOGFILE_TMP
 rm -f $BLOCKLIST_FILE
 rm -f $BLOCKLIST_TMP_FILE
