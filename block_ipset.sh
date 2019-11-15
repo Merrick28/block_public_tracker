@@ -137,7 +137,7 @@ then
 fi
 
 #cleaning
-cat $LOGFILE_TMP >> ${LOGFILE}
+cat $LOGFILE_TMP >> ${LOG_FILE}
 rm -f $LOGFILE_TMP
 rm -f $BLOCKLIST_FILE
 rm -f $BLOCKLIST_TMP_FILE
