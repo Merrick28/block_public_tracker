@@ -26,11 +26,11 @@ MAIL_RECIPIENTS="stephane@sdewitte.net" #send mail to multiple receipients by ov
 ###################################################################################################
 # DO NOT TOUCH FROM HERE
 
-if [ -f $IPTABLES_PATH ]; then  echo "Cannot find [ iptables ]. Is it installed? Exiting"; exit 1; fi;
-if [ -f $IPSET_PATH ]; then echo "Cannot find [ ipset ]. Is it installed? Exiting"; exit 1; fi;
-if [ -f $SORT_PATH ]; then echo "Cannot find [ sort ]. Is it installed? Exiting"; exit 1; fi;
-if [ -f $MAIL_PATH ]; then echo "Cannot find [ mail ]. Is it installed? Exiting"; exit 1; fi;
-if [ -f $GREP_PATH ]; then echo "Cannot find [ grep ]. Is it installed? Exiting"; exit 1; fi;
+if [ ! -f $IPTABLES_PATH ]; then  echo "Cannot find [ iptables ]. Is it installed? Exiting"; exit 1; fi;
+if [ ! -f $IPSET_PATH ]; then echo "Cannot find [ ipset ]. Is it installed? Exiting"; exit 1; fi;
+if [ ! -f $SORT_PATH ]; then echo "Cannot find [ sort ]. Is it installed? Exiting"; exit 1; fi;
+if [ ! -f $MAIL_PATH ]; then echo "Cannot find [ mail ]. Is it installed? Exiting"; exit 1; fi;
+if [ ! -f $GREP_PATH ]; then echo "Cannot find [ grep ]. Is it installed? Exiting"; exit 1; fi;
 
 LOGFILE_TMP=$(mktemp)
 
