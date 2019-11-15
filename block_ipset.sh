@@ -19,8 +19,7 @@ DEBUG=true # can be true or false
 
 # E-Mail variables
 SEND_MAIL=true
-MAIL_SENDER="seed" #this defines a system-user without a shell or password. It's used as the e-mail sender name. You can create one like this: useradd -M -N -s /usr/sbin/nolog
-in myuser && passwd -d myuser
+MAIL_SENDER="seed" #this defines a system-user without a shell or password.
 MAIL_SUBJECT="ERROR - IP blocklist script failed to download the IP set"
 MAIL_RECIPIENTS="stephane@sdewitte.net" #send mail to multiple receipients by overgiving a space-seperated address list
 
