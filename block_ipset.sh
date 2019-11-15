@@ -1,9 +1,9 @@
 #!/bin/bash
 declare -A LIST_TO_DOWNLOAD
-LIST_TO_DOWNLOAD['blocklist.de']="http://lists.blocklist.de/lists/all.txt"
+LIST_TO_DOWNLOAD['blocklist-de']="http://lists.blocklist.de/lists/all.txt"
 LIST_TO_DOWNLOAD['public-trackers']="https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all_ip.txt"
 # Add other lists if necessary
-# LIST_TO_DOWNLOAD['mylist']="<url>"
+# LIST_TO_DOWNLOAD['iBlock-Government']="http://list.iblocklist.com/?list=lakuncfhfhgiqghqxjzi&fileformat=cidr&archiveformat=&username=xxxxxxxx&pin=xxxxxxxx"
 
 IPTABLES_PATH="/sbin/iptables"
 IPSET_PATH="/sbin/ipset"
