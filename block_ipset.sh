@@ -1,4 +1,8 @@
 #!/bin/bash
+##############################################################
+# INSPIRED FROM
+# https://www.lexo.ch/blog/2019/09/blocklist-de-iptables-ipset-update-script-how-to-automatically-update-your-firewall-with-the-ip-set-from-blocklist-de/
+##############################################################
 declare -A LIST_TO_DOWNLOAD
 LIST_TO_DOWNLOAD['blocklist-de']="http://lists.blocklist.de/lists/all.txt"
 LIST_TO_DOWNLOAD['public-trackers']="https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all_ip.txt"
