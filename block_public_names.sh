@@ -9,6 +9,9 @@ if [[ "$EUID" -ne 0 ]];
   then echo "Please run as root or use sudo"  
   exit 1
 fi
+echo "########################################################"
+echo "This script is outdated. Please use block_ipset instead !"
+echo "########################################################"
 
 ##########################################
 # Clean current entries

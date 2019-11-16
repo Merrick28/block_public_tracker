@@ -3,37 +3,53 @@
 # INSPIRED FROM
 # https://www.lexo.ch/blog/2019/09/blocklist-de-iptables-ipset-update-script-how-to-automatically-update-your-firewall-with-the-ip-set-from-blocklist-de/
 ##############################################################
+
+
+# Lists
 declare -A LIST_TO_DOWNLOAD
-LIST_TO_DOWNLOAD['blocklist-de']="http://lists.blocklist.de/lists/all.txt"
+LIST_TO_DOWNLOAD['blocklist.de']="http://lists.blocklist.de/lists/all.txt"
 LIST_TO_DOWNLOAD['public-trackers']="https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all_ip.txt"
 # Add other lists if necessary
 # LIST_TO_DOWNLOAD['iBlock-Government']="http://list.iblocklist.com/?list=lakuncfhfhgiqghqxjzi&fileformat=cidr&archiveformat=&username=xxxxxxxx&pin=xxxxxxxx"
+# If you use iBlock, please select CIDR format, without compression
 
+# Paths
 IPTABLES_PATH="/sbin/iptables"
 IPSET_PATH="/sbin/ipset"
 SORT_PATH="/usr/bin/sort"
 MAIL_PATH="/usr/bin/mail"
 GREP_PATH="/bin/grep"
 
+#Log file
 LOG_FILE="/var/log/block_ipset.log"
 
+#Action
 ACTION="REJECT" # Can be DROP or REJECT
 
-DEBUG=true # can be true or false
+# DEBUG, false by default
+DEBUG=false # can be true or false
 
 # E-Mail variables
-SEND_MAIL=true
+SEND_MAIL=false # true = send mail, false = no mail ...
 MAIL_SENDER="seed" #this defines a system-user without a shell or password.
 MAIL_SUBJECT="ERROR - IP blocklist script failed to download the IP set"
-MAIL_RECIPIENTS="stephane@sdewitte.net" #send mail to multiple receipients by overgiving a space-seperated address list
+MAIL_RECIPIENTS="me@mydomain.com" #send mail to multiple receipients by overgiving a space-seperated address list
 
 ###################################################################################################
 # DO NOT TOUCH FROM HERE
 
+if [[ "$EUID" -ne 0 ]];
+  then echo "Please run as root or use sudo"
+  exit 1
+fi
+
 if [ ! -f $IPTABLES_PATH ]; then  echo "Cannot find [ iptables ]. Is it installed? Exiting"; exit 1; fi;
 if [ ! -f $IPSET_PATH ]; then echo "Cannot find [ ipset ]. Is it installed? Exiting"; exit 1; fi;
 if [ ! -f $SORT_PATH ]; then echo "Cannot find [ sort ]. Is it installed? Exiting"; exit 1; fi;
-if [ ! -f $MAIL_PATH ]; then echo "Cannot find [ mail ]. Is it installed? Exiting"; exit 1; fi;
+if [ "$SEND_MAIL" = true ]
+    then
+    if [ ! -f $MAIL_PATH ]; then echo "Cannot find [ mail ]. Is it installed? Try apt install mailutils. Exiting"; exit 1; fi;
+fi
 if [ ! -f $GREP_PATH ]; then echo "Cannot find [ grep ]. Is it installed? Exiting"; exit 1; fi;
 
 LOGFILE_TMP=$(mktemp)
@@ -46,8 +62,7 @@ do
     # The download path to the file which contains all the IP addresses
     TO_DOWNLOAD="${LIST_TO_DOWNLOAD[$i]}"
 
-    # Other settings; Edit if necesarry
-    CHAINNAME="$i"
+    CHAINNAME=`echo  ${i}|sed 's/\./-/g'` # replace dots by dash to avoid errors
 
     BLOCKLIST_FILE=$(mktemp)
     BLOCKLIST_TMP_FILE=$(mktemp)
@@ -131,6 +146,9 @@ do
 
     echo "" >>$LOGFILE_TMP
     echo "Done." >>$LOGFILE_TMP
+    # cleaning
+    rm -f $BLOCKLIST_FILE
+    rm -f $BLOCKLIST_TMP_FILE
 
 done
 
@@ -143,5 +161,3 @@ fi
 #cleaning
 cat $LOGFILE_TMP >> ${LOG_FILE}
 rm -f $LOGFILE_TMP
-rm -f $BLOCKLIST_FILE
-rm -f $BLOCKLIST_TMP_FILE

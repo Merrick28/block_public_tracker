@@ -10,6 +10,10 @@ if [[ "$EUID" -ne 0 ]];
   exit 1
 fi
 
+echo "########################################################"
+echo "This script is outdated. Please use block_ipset instead !"
+echo "########################################################"
+
 ip_list=$(tempfile)
 
 ##########################################
