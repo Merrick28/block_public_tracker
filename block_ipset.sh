@@ -96,14 +96,14 @@ do
     then
             # Create the new ipset set
             echo "ipset configuration does not exists, creating ... " >>$LOGFILE_TMP
-            $IPSET_PATH create $CHAINNAME hash:ip maxelem 16777216 >>$LOGFILE_TMP 2>&1
+            $IPSET_PATH create $CHAINNAME hash:ip maxelem 1677721600 >>$LOGFILE_TMP 2>&1
     else
             echo "ipset configuration already exists - Flushing and recreating the iptables/ipset configuration ..." >>$LOGFILE_TMP
             # Reason: The kernel sometimes did not properly flush the ipset list which caused errors. Thus we remove the whole list and recreate it from scatch
             $IPTABLES_PATH --flush $CHAINNAME >>$LOGFILE_TMP 2>&1
             $IPSET_PATH flush $CHAINNAME >>$LOGFILE_TMP 2>&1
             $IPSET_PATH destroy $CHAINNAME >>$LOGFILE_TMP 2>&1
-            $IPSET_PATH create $CHAINNAME hash:ip maxelem 16777216 >>$LOGFILE_TMP 2>&1
+            $IPSET_PATH create $CHAINNAME hash:ip maxelem 1677721600 >>$LOGFILE_TMP 2>&1
     fi
 
     echo "" >>$LOGFILE_TMP
